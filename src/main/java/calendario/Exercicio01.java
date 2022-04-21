@@ -1,35 +1,38 @@
 package calendario;
 
-import static java.lang.Integer.max;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Calendar;
+import java.util.Scanner;
 
 public class Exercicio01 {
     
     public static void main(String[] args) {
+       Calendar cal = Calendar.getInstance();
+       cal.setTime(new Date());
         
-        Calendar date = Calendar.getInstance();
-        date.setTime(new Date());
+        boolean i = true;
         
-        Date hoje = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyy/MM/dd HH:mm");
-        System.out.println("Data personalizada: " + sdf.format(hoje));
+        do{
+            SimpleDateFormat form = new SimpleDateFormat("yyy/MM/dd hh:mm");
+            System.out.println("Informe a data e a hora do seu nacimento(ano/mês/dia horas:minutos): ");
+            Scanner sc = new Scanner(System.in);
+            String data = sc.nextLine();
+            try{
+                Date DataEntrada = new Date();
+                DataEntrada = form.parse(data);
+                System.out.println("A data e a hora do seu nascimento é: " + DataEntrada);
+                i = false;
+            }catch(Exception ex){
+                System.out.println("Data Inválida");
+                i = true;  
+            }
 
-        LocalDate localDate = LocalDate.now().withMonth(12).with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println( "Valor máximo de ano: "+ localDate.format(DateTimeFormatter.ofPattern("yyyy")));
+        }while(i== true);
         
-        localDate = LocalDate.now().withMonth(12).with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println( "Valor máximo de mês: "+ localDate.format(DateTimeFormatter.ofPattern("MM")));
-        
-        localDate = LocalDate.now().withMonth(12).with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println( "Valor máximo de dia: "+ localDate.format(DateTimeFormatter.ofPattern("dd")));
-        
-        localDate = LocalDate.now().withMonth(12).with(TemporalAdjusters.lastDayOfMonth());
-        System.out.println( "Valor máximo da data do ano corrente: "+ localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                
+        System.out.println("o dia máximo é : " + cal.getActualMaximum(cal.DAY_OF_MONTH));
+        System.out.println("o mês máximo é : " + cal.getActualMaximum(cal.MONTH));
+        System.out.println("o ano máximo é : " + cal.getActualMaximum(cal.YEAR));
     }
 }
